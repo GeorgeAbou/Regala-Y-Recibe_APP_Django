@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulación a Intercambio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/postular_intercambio.css' %}">
+</head>
+<body>
+    <div class="interchange-container">
+        <!-- Sección Izquierda: Datos del usuario y producto -->
+        <div class="left-section">
+            <div class="user-info">
+                <h2>Datos del Usuario</h2>
+                <img src="{{ producto.usuario_creador.imagen_perfil.url }}" alt="Foto del Usuario" class="user-photo">
+                <div class="details">
+                    <p><strong>Nombre:</strong> {{ producto.usuario_creador.nombre }} {{ producto.usuario_creador.apellido }}</p>
+                    <p><strong>Correo:</strong> {{ producto.usuario_creador.email }}</p>
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Producto del Usuario</h2>
+                <img src="{{ producto.imagen.url }}" alt="Producto" class="product-photo">
+                <p><strong>Nombre:</strong> {{ producto.nombre_producto }}</p>
+                <p>Categoría: <strong>{{ producto.categoria.nombre_categoria }}</strong></p>
+                <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            </div>
+            <a style="color:blue; text-decoration:none;"  href="{% url 'home' %}" class="back-link"><strong>Volver</strong></a>
+        </div>
+
+        <!-- Sección Derecha: Formulario -->
+        <div class="right-section">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>Detalles de tu Producto</h2>
+                {{ form.as_p }}
+                
+                <button type="submit" class="submit-btn">Enviar Solicitud</button>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
+

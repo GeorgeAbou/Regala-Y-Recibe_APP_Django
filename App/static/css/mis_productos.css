@@ -1,0 +1,157 @@
+/* Contenedor principal */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: cadetblue;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+/* Tarjetas en formato Grid */
+.marketplace {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Tarjetas más pequeñas */
+    gap: 50px; /* Espaciado reducido */
+    width: 100%;
+    max-width: 1200px; /* Evita que crezca demasiado en pantallas grandes */
+    margin: 0 auto;
+    padding: 10px; /* Espacio adicional */
+}
+
+/* Estilo de la tarjeta de producto */
+.product-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    height: 120px; /* Imágenes más pequeñas */
+    width: 120px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+/* Títulos y detalles */
+.product-card h3 {
+    font-size: 1rem; /* Texto más pequeño */
+    color: #004d61;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-size: 0.8rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Estilo de los botones */
+.product-actions button {
+    padding: 8px 12px; /* Botones más pequeños */
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 48%; /* Botones más estrechos */
+    margin-top: 10px;
+}
+
+/* Botón Editar */
+.product-actions .edit-btn {
+    background-color: #00aaff;
+    color: white;
+}
+
+.product-actions .edit-btn:hover {
+    background-color: #0077cc;
+    transform: translateY(-3px);
+}
+
+.product-actions .edit-btn:active {
+    background-color: #005c7f;
+    transform: translateY(0);
+}
+
+/* Botón Eliminar */
+.product-actions .delete-btn {
+    background-color: rgb(239, 49, 49);
+    color: white;
+   width: fit-content;
+}
+
+.product-actions .delete-btn:hover {
+    background-color: rgb(200, 30, 30);
+    transform: translateY(-3px);
+}
+
+.product-actions .delete-btn:active {
+    background-color: rgb(150, 20, 20);
+    transform: translateY(0);
+}
+
+/* Responsividad: pantalla más pequeña */
+@media (max-width: 1024px) {
+    .marketplace {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Columnas más pequeñas */
+    }
+
+    .product-card img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .product-actions button {
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .marketplace {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* Ajuste aún más pequeño */
+    }
+
+    .product-card img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .product-actions button {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .marketplace {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+    }
+
+    .product-card img {
+        height: 60px;
+        width: 60px;
+    }
+
+    .product-actions button {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Crear Producto{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/crear_producto.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Nuevo Producto a Publicar </h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nombre_producto">Nombre del Producto:</label>
+                {{ form.nombre_producto }}
+            </div>
+            
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                {{ form.descripcion }}
+            </div>
+            
+            {% comment %} <div class="form-group"> Ocultar Estado
+                <label for="estado">Estado:</label>
+                {{ form.estado }}
+            </div> {% endcomment %}
+
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                {{ form.categoria }}
+            </div>
+            
+            <div class="form-group">
+                <label for="tipo_transaccion">Tipo de Transacción:</label>
+                {{ form.tipo_transaccion }}
+            </div>
+
+            <div class="form-group">
+                <label for="imagen">Imagen del Producto:</label>
+                {{ form.imagen }}
+            </div>
+
+            <button type="submit" class="submit-btn">Crear Producto</button>
+        </form>
+        <a href="{% url 'home' %}" class="back-link">Volver al Panel de Usuario</a>
+    </div>
+</body>
+</html>
+
+    
+{% endblock %}
+

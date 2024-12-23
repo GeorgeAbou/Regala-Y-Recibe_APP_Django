@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postular a Donación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/postular_donacion.css' %}">
+</head>
+<body>
+    <div class="donation-container">
+        <!-- Sección Izquierda: Datos del usuario y producto -->
+        <div class="left-section">
+            <div class="user-info">
+                <img src="{{ producto.usuario_creador.imagen_perfil.url }}" alt="Foto del Usuario" class="user-photo">
+                <div class="details">
+                    <p><strong>Nombre del Usuario:</strong> {{ producto.usuario_creador.nombre }} {{ producto.usuario_creador.apellido }}</p>
+                    <p><strong>Correo Electrónico:</strong> {{ producto.usuario_creador.email }}</p>
+                </div>
+            </div>
+            <div class="product-info">
+                <img src="{{ producto.imagen.url }}" alt="Foto del Producto" class="product-photo">
+                <div class="details">
+                    <p><strong>Producto:</strong> {{ producto.nombre_producto }}</p>
+                    <p>Categoría: <strong>{{ producto.categoria.nombre_categoria }}</strong></p>
+                    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Derecha: Formulario -->
+        <div class="right-section">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>Postular a Donación</h2>
+                {{ form.as_p }}
+                <button type="submit" class="submit-donation-btn">Postular</button>
+                <a href="{% url 'home' %}" class="back-link">Volver</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

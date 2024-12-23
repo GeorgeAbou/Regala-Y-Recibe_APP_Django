@@ -1,0 +1,339 @@
+/* General */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: cadetblue;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header */
+.header {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    color: #004d61;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-bar, .category-dropdown {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem; /* Reducir tamaño de fuente */
+    max-width: 180px; /* Limitar el tamaño */
+}
+
+.filter-btn, .logout-btn {
+    background-color: #004d61;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.filter-btn:hover, .logout-btn:hover {
+    background-color: #007b8a;
+}
+
+/* Contenedor principal */
+.panel-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column; /* Cambiar la dirección del contenedor a columna */
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #004d61;
+    width: 15%;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: white;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.edit-btn, .sidebar-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-btn:hover, .sidebar-btn:hover {
+    background-color: #0077cc;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: cadetblue;
+    overflow-y: auto;
+}
+
+.main-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #004d61;
+}
+
+/* Estilos del grid para las tarjetas */
+.marketplace {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste de columnas con un tamaño mínimo */
+    gap: 15px; /* Espacio entre las tarjetas */
+    padding: 0 10px; /* Espaciado alrededor de las tarjetas */
+    width: 100%;
+}
+
+/* Estilo de la tarjeta de producto */
+.product-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: auto;
+    max-width: 280px; /* Limita el ancho máximo de la tarjeta */
+    margin: 0 auto; /* Centra las tarjetas */
+}
+
+/* Ajuste de la imagen */
+.product-card img {
+    border-radius: 10px;
+    margin-bottom: 10px;
+    height: 200px;
+    width: 100%; /* Hace que la imagen ocupe todo el ancho disponible en la tarjeta */
+    object-fit: cover;
+}
+
+/* Títulos y detalles */
+.product-card h3 {
+    font-size: 1.2rem;
+    color: #004d61;
+    margin: 10px 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.small-profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.view-profile-btn {
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.transaction-type {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.transaction-type.exchange {
+    background-color: #ff9800;
+    color: white;
+}
+
+.transaction-type.donation {
+    background-color: #4caf50;
+    color: white;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.detail-btn, .request-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.detail-btn {
+    background-color: #00aaff;
+    color: white;
+    text-decoration: none;
+}
+
+.request-btn {
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+}
+
+.detail-btn:hover {
+    background-color: #0077cc;
+    text-decoration: none;
+}
+
+.request-btn:hover {
+    background-color: #45a049;
+    text-decoration: none;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    /* Ocultar la barra lateral en pantallas pequeñas */
+    .sidebar {
+        display: none; /* Ocultar la barra lateral */
+    }
+
+    /* Ajuste del contenedor principal */
+    .panel-container {
+        flex-direction: column; /* Cambiar la dirección del contenedor a columna */
+    }
+
+    /* Ajuste de las tarjetas para que ocupen 2 por fila */
+    .marketplace {
+        grid-template-columns: repeat(2, 1fr); /* Ahora habrá 2 columnas por fila */
+        gap: 10px; /* Reducir espacio entre las tarjetas */
+    }
+
+    .product-card {
+        max-width: 100%; /* Las tarjetas ocupan todo el ancho disponible */
+        padding: 10px; /* Reducir el padding de la tarjeta */
+    }
+
+    .product-card img {
+        height: 140px; /* Reducir aún más la altura de la imagen */
+        width: 100%; /* Asegurarse de que ocupe todo el ancho disponible */
+        
+    }
+
+    .product-card h3 {
+        font-size: 1rem; /* Reducir el tamaño del texto en el título */
+        margin: 8px 0; /* Reducir el espacio alrededor del título */
+    }
+
+    .user-info {
+        gap: 8px; /* Reducir el espacio entre los elementos de usuario */
+    }
+
+    .small-profile-pic {
+        width: 25px; /* Reducir el tamaño de la foto pequeña de perfil */
+        height: 25px;
+    }
+
+    .view-profile-btn {
+        padding: 4px 8px; /* Reducir el tamaño del botón */
+        font-size: 0.8rem; /* Reducir el tamaño del texto */
+    }
+
+    /* Ajuste de los botones en la tarjeta */
+    .product-actions {
+        flex-direction: column;
+        gap: 10px; /* Menos espacio entre los botones */
+    }
+
+    .detail-btn, .request-btn {
+        padding: 6px 12px; /* Reducir el tamaño de los botones */
+        font-size: 0.8rem; /* Reducir el tamaño de la fuente */
+    }
+
+    /* Ajuste del header para pantallas pequeñas */
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px; /* Reducir padding del header */
+    }
+
+    .header h1 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    /* Ajuste de la barra de búsqueda y dropdown */
+    .search-bar, .category-dropdown, .filter-btn {
+        width: 100%; /* Los elementos ocupan el 100% del ancho disponible */
+        font-size: 0.8rem; /* Reducir el tamaño de la fuente */
+        padding: 6px 12px; /* Reducir el padding */
+    }
+
+    /* Botón de filtro */
+    .filter-btn {
+        padding: 6px 12px; /* Reducir el tamaño del botón */
+    }
+
+    /* Ajustar los márgenes de los encabezados en el contenido principal */
+    .main-content h2 {
+        font-size: 1.4rem; /* Reducir el tamaño del título */
+        margin-bottom: 15px; /* Reducir el espacio debajo del título */
+    }
+
+    /* Reducir el tamaño de los textos en el marketplace */
+    .marketplace .product-card h3 {
+        font-size: 1rem; /* Reducir aún más el tamaño del texto */
+    }
+
+    /* Ajuste de los botones en el header */
+    .logout-btn {
+        width: 100%;
+        margin-top: 10px;
+        font-size: 0.9rem; /* Reducir el tamaño de la fuente del botón */
+    }
+}
+

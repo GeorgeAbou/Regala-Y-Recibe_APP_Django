@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/detalle_producto.css' %}">
+    <title>Detalle del Producto</title>
+</head>
+<body>
+    <div class="main-content">
+        <div class="product-detail-container">
+            <div class="product-detail-card">
+                <!-- Sección de imagen -->
+                <div class="product-image-section">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="Imagen de {{ producto.nombre_producto }}" class="product-image">
+                    {% else %}
+                        <img src="{% static 'images/default-product.jpg' %}" alt="Imagen no disponible" class="product-image">
+                    {% endif %}
+                </div>
+                <!-- Sección de información -->
+                <div class="product-info">
+                    <h2 class="product-name">{{ producto.nombre_producto }}</h2>
+                
+                    <p><strong>Categoría:</strong> {{ producto.categoria.nombre_categoria|default:"Sin categoría" }}</p>
+                    <p><strong>Tipo de Transacción:</strong> {{ producto.tipo_transaccion.nombre|default:"No especificado" }}</p>
+                    <p>
+                        <strong>Descripción: </strong>{{ producto.descripcion   }}
+                    </p>
+                    <div class="creator-info">
+                        <!-- Información del creador -->
+                        {% if producto.usuario_creador.imagen_perfil %}
+                            <img src="{{ producto.usuario_creador.imagen_perfil.url }}" alt="Perfil de {{ producto.usuario_creador.nombre }}" class="creator-image">
+                        {% else %}
+                            <img src="{% static 'images/default-user.jpg' %}" alt="Sin imagen de perfil" class="creator-image">
+                        {% endif %}
+                        <div>
+                            <p><strong>Publicado por:</strong> {{ producto.usuario_creador.nombre }}</p>
+                            <a href="{% url 'visita_perfil' producto.usuario_creador.id %}" class="profile-link">Ver Perfil</a>
+                            
+                        </div>
+                    </div>
+                    <!-- Botones de acción  se postula si es mi publicación-->
+                    {% if producto.usuario_creador != request.user %}
+                        {% if producto.tipo_transaccion.nombre|lower == 'donación' %}
+                            <button class="request-btn"><a  style="color: white;text-decoration: none;" href="{% url 'postular_donacion' producto.id %}" class="btn btn-primary">Postular a Donación</a></button> 
+                        {% elif producto.tipo_transaccion.nombre|lower == 'intercambio' %}
+                            <button class="request-btn"><a  style="color: white;text-decoration: none;" href="{% url 'postular_intercambio' producto.id %}" class="btn btn-primary">Postular a Intercambio</a></button> 
+                        {% endif %}
+                    {% endif %}
+                        
+                    <a style="color: blue;"  href="{% url 'home' %}" class="back-link"><strong>Volver</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

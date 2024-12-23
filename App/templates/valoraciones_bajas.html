@@ -1,0 +1,32 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  {% if valoraciones_data %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Puntaje</th>
+          <th>Reseña</th>
+          <th>Fecha de Valoración</th>
+          <th>Usuario que Valora</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for valoracion in valoraciones_data %}
+          <tr>
+            <td>{{ valoracion.usuario }}</td>
+            <td>{{ valoracion.puntaje }}</td>
+            <td>{{ valoracion.resena }}</td>
+            <td>{{ valoracion.fecha_valoracion }}</td>
+            <td>{{ valoracion.usuario_que_valora }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay valoraciones menores a 3.</p>
+  {% endif %}
+{% endblock %}

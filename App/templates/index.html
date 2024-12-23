@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <div class="user-panel">
+        <!-- Header -->
+        <header class="header">
+            
+            <h1>Regala y Recibe</h1>
+           
+            <div class="header-actions">
+                <input type="text" placeholder="Buscar productos..." class="search-bar">
+                <select class="category-dropdown">
+                    <option value="all">Todas las categorías</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}">{{ categoria.nombre_categoria }}</option>
+                    {% endfor %}
+                </select>
+                <button class="filter-btn">Buscar</button>
+                <a style="text-decoration: none; text-align: center;" class="logout-btn" href="{% url 'login' %}">Iniciar Sesión</a>
+                <a style="text-decoration: none;" class="logout-btn" href="{% url 'registro' %}">Registrarse</a>
+            </div>
+        </header>
+        
+        {% block content %}
+        <main class="main-content">
+            <div class="promocion">
+                <h2>
+                    Plataforma única donde puedes intercambiar y donar productos conectándote con otras personas en tu comunidad
+                </h2>
+                
+            </div>
+
+            <h2>Artículos Disponibles</h2>
+            <section class="marketplace">
+                {% for producto in productos %}
+                    <div class="product-card">
+                        <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'default_product.jpg' %}{% endif %}" 
+                            alt="{{ producto.nombre_producto }}" class="product-image"> 
+                        <h3>{{ producto.nombre_producto }}</h3>
+                        <p>Categoría: {{ producto.categoria.nombre_categoria }}</p>
+                    </div>
+                {% endfor %}
+            </section>
+
+            <section id="features" class="features">
+                <h2 style="text-align: center;">Nuestras Características</h2>
+                <div class="feature-cards">
+                    <div class="card"><h3>✔Fácil de Usar</h3><p>Una experiencia sencilla y amigable para todos.</p></div>
+                    <div class="card"><h3>✔ Seguro</h3><p>Tus datos están siempre protegidos con nosotros.</p></div>
+                    <div class="card"><h3>✔ Promueve la sostenibilidad</h3><p>Reduce los desechos sólidos.</p></div>
+                    <div class="card"><h3>✔Participación comunitaria</h3><p>Conecta fácilmente con otros.</p></div>
+                </div>
+            </section>
+
+            <section id="users" class="users">
+                <h2>Usuarios destacados</h2>
+                <div class="user-cards">
+                    {% for usuario in usuarios %}
+    <div class="user-card">
+        {% if usuario.imagen_perfil %}
+            <img src="{{ usuario.imagen_perfil.url }}" alt="{{ usuario.nombre }}">
+        {% else %}
+            <img src="{% static 'imagenes/perfilhombre6.jfif' %}" alt="{{ usuario.nombre }}">
+        {% endif %}
+        <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+        <ul>
+            <li>Comuna: {{ usuario.comuna }}</li>
+            <li>Valoración: ⭐5</li>  <!-- Valoración fija a 5 estrellas -->
+        </ul>
+    </div>
+{% endfor %}
+                </div>
+            </section>
+            <footer class="footer">
+                <p>&copy; 2024 Regala y Recibe. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+        {% endblock %}
+    </div>
+</body>
+</html>

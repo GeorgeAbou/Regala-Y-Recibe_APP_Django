@@ -1,0 +1,133 @@
+.product-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.product-detail-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Proporción: imagen/información */
+    gap: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 700px; /* Ajuste del tamaño */
+    width: 100%;
+    overflow: hidden;
+}
+
+.product-image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    height: auto; /* Ajuste automático al contenido */
+}
+
+.product-image {
+    width: 100%;
+    max-height: 300px; /* Ajuste del alto para igualar al contenido */
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    justify-content: space-between; /* Espaciado uniforme */
+}
+
+.product-info h2 {
+    font-size: 1.5rem;
+    color: #004d61;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.creator-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.creator-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid cadetblue;
+}
+
+.profile-link {
+    color: #007BFF;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.profile-link:hover {
+    color: #0056b3;
+}
+
+.solicitar-btn {
+    display: block;
+    padding: 15px 30px; /* Más grande */
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2rem; 
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.solicitar-btn:hover {
+    background-color: #45a049;
+}
+
+.back-link {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    color: cadetblue;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #5b8b8b;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .product-detail-card {
+        grid-template-columns: 1fr; /* Columnas a filas */
+        width: 100%;
+    }
+
+    .product-image {
+        max-width: 100%;
+    }
+
+    .creator-info {
+        justify-content: center;
+        text-align: center;
+    }
+}

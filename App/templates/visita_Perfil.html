@@ -1,0 +1,312 @@
+{% extends "home.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/visita_perfil.css' %}">
+
+<!-- Estilo solo valoración -->
+<style>
+    .profile-detail-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    /* Contenedor de detalles del perfil */
+    .profile-detail-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 600px;
+        margin: 10px;
+    }
+
+    /* Estilo de la imagen de perfil */
+    .profile-image-section img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        max-width: 100%; /* Asegura que no se desborde */
+    }
+
+    /* Estilo de la información del perfil */
+    .profile-info {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    /* Sección de valoraciones */
+    .valoraciones-container {
+        margin-top: 30px;
+        width: 100%;
+        max-width: 600px;
+        padding: 0 15px;
+    }
+
+    /* Estilo de las valoraciones */
+    .valoracion-item {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-wrap: wrap; /* Para hacer que se ajuste mejor en pantallas pequeñas */
+        align-items: center;
+    }
+
+    /* Información del usuario que hizo la valoración */
+    .valoracion-item .user-info {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+        width: 100%; /* Para asegurarse de que ocupe todo el espacio disponible en pantallas pequeñas */
+    }
+
+    .valoracion-item .user-info img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .valoracion-item .user-info .username {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    /* Estilo de las estrellas */
+    .valoracion-item .stars {
+        font-size: 1.5rem;
+        color: gold;
+        margin-right: 10px;
+    }
+
+    /* Estilo de la reseña */
+    .valoracion-item .resena {
+        font-style: italic;
+        color: #555;
+        flex: 1; /* Para que la reseña ocupe el espacio restante */
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    /* Botón de cerrar */
+    .close-btn {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Botón de acción */
+    .profile-actions {
+        margin-top: 20px;
+    }
+
+    .profile-actions a {
+        text-decoration: none;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    /* Estilos Responsivos */
+
+    @media (max-width: 768px) {
+        .profile-detail-card {
+            padding: 15px;
+        }
+
+        .profile-image-section img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .profile-info {
+            margin-top: 10px;
+        }
+
+        .valoracion-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .valoracion-item .user-info {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .valoracion-item .stars {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .profile-image-section img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .valoracion-item {
+            padding: 10px;
+        }
+
+        .valoracion-item .stars {
+            font-size: 1rem;
+        }
+
+        .profile-actions a {
+            font-size: 0.9rem;
+            padding: 8px 12px;
+        }
+    }
+</style>
+
+<div class="profile-detail-container">
+    <!-- Detalles del perfil -->
+    <div class="profile-detail-card">
+        <!-- Imagen del usuario -->
+        <div class="profile-image-section">
+            {% if usuario.imagen_perfil %}
+                <img src="{{ usuario.imagen_perfil.url }}" alt="Perfil de {{ usuario.nombre }}" class="profile-image">
+            {% else %}
+                <img src="{% static 'images/default-user.jpg' %}" alt="Imagen no disponible" class="profile-image">
+            {% endif %}
+        </div>
+        
+        <!-- Información del usuario -->
+        <div class="profile-info">
+            <h2 class="profile-name"><strong>Perfil de: {{ usuario.nombre }} {{ usuario.apellido }}</strong></h2>
+            <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+            <p><strong>Email:</strong> {{ usuario.email }}</p>
+            <p><strong>Comuna:</strong> {{ usuario.comuna }}</p>
+            <p><strong>Puntaje de valoración:</strong> {{ usuario.obtener_promedio_valoraciones }}</p>
+            
+            <!-- Botón para abrir la ventana emergente -->
+            {% if usuario != request.user %} <!-- Verifica si no es tu propio perfil -->
+                <button id="valorarBtn">Valorar</button>
+            {% endif %}
+
+            <!-- Ventana emergente (modal) -->
+            <div id="valoracionModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h3>Valorar a {{ usuario.nombre }}</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" name="valorar">Enviar valoración</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Botón de acción -->
+            <div class="profile-actions">
+                <a href="{% url 'home' %}" class="back-btn">Volver</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sección de valoraciones -->
+    <div class="valoraciones-container">
+        <h3>Valoraciones:</h3>
+        {% for valoracion in usuario.valoraciones.all %}
+            <div class="valoracion-item">
+                <!-- Información del usuario que realizó la valoración -->
+                <div class="user-info">
+                    {% if valoracion.usuario_que_valora.imagen_perfil.url %}
+                        <img src="{{ valoracion.usuario_que_valora.imagen_perfil.url }}" alt="Perfil de {{ valoracion.usuario_que_valora.nombre }}">
+                    {% else %}
+                        <img src="{% static 'images/default-user.jpg' %}" alt="Imagen no disponible">
+                    {% endif %}
+                    <span class="username">{{ valoracion.usuario_que_valora.nombre }} {{ valoracion.usuario_que_valora.apellido }}</span>
+                    <p>{{ valoracion.fecha_valoracion }}</p>
+                </div>
+                
+                <!-- Estrellas -->
+                <div class="stars">
+                    {% for i in rango %}
+                        {% if i < valoracion.puntaje %}
+                            &#9733;  <!-- Estrella llena -->
+                        {% else %}
+                            &#9734;  <!-- Estrella vacía -->
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <!-- Reseña -->
+                <div class="resena">
+                    {% if valoracion.resena %}
+                        "{{ valoracion.resena }}"
+                    {% else %}
+                        No hay reseña.
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // Obtener el modal y el botón
+    var modal = document.getElementById("valoracionModal");
+    var btn = document.getElementById("valorarBtn");
+    var span = document.getElementsByClassName("close-btn")[0];
+
+    // Cuando el usuario haga clic en el botón "Valorar", se abre el modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Cuando el usuario haga clic en (X), el modal se cierra
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Si el usuario hace clic fuera del modal, el modal se cierra
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+{% endblock %}

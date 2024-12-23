@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}Panel de Usuario{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <style>
+                            .delete-btn {
+                                background-color: #e74c3c;
+                                color: white;
+                                border: none;
+                                padding: 8px 15px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                text-decoration: none;
+                                margin-top: 10px;
+                            }
+                            
+                            .delete-btn:hover {
+                                background-color: #c0392b;
+                            }
+                            /* Contenedor principal */
+                    .main-content {
+                        flex: 1;
+                        padding: 20px;
+                        background-color: cadetblue;
+                        overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        box-sizing: border-box;
+                        min-height: 100vh;
+                    }
+
+                    /* Tarjetas en formato Grid */
+                    .marketplace {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Tarjetas más pequeñas */
+                        gap: 50px; /* Espaciado reducido */
+                        width: 100%;
+                        max-width: 1200px; /* Evita que crezca demasiado en pantallas grandes */
+                        margin: 0 auto;
+                        padding: 10px; /* Espacio adicional */
+                    }
+
+                    /* Estilo de la tarjeta de producto */
+                    .product-card {
+                        background-color: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        height: auto;
+                        transition: transform 0.3s ease-in-out;
+                        width: 100%;
+                    }
+
+                    .product-card:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .product-card img {
+                        border-radius: 8px;
+                        margin-bottom: 10px;
+                        height: 120px; /* Imágenes más pequeñas */
+                        width: 120px;
+                        object-fit: cover;
+                        margin: 0 auto;
+                    }
+
+                    /* Títulos y detalles */
+                    .product-card h3 {
+                        font-size: 1rem; /* Texto más pequeño */
+                        color: #004d61;
+                        margin: 10px 0;
+                    }
+
+                    .product-card p {
+                        font-size: 0.8rem;
+                        color: #555;
+                        margin: 5px 0;
+                    }
+
+                    /* Estilo de los botones */
+                    .product-actions button {
+                        padding: 8px 12px; /* Botones más pequeños */
+                        font-size: 0.9rem;
+                        border-radius: 5px;
+                        border: none;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease, transform 0.3s ease;
+                        width: 48%; /* Botones más estrechos */
+                        margin-top: 10px;
+                    }
+
+                    /* Botón Editar */
+                    .product-actions .edit-btn {
+                        background-color: #00aaff;
+                        color: white;
+                    }
+
+                    .product-actions .edit-btn:hover {
+                        background-color: #0077cc;
+                        transform: translateY(-3px);
+                    }
+
+                    .product-actions .edit-btn:active {
+                        background-color: #005c7f;
+                        transform: translateY(0);
+                    }
+
+                    /* Botón Eliminar */
+                    .product-actions .delete-btn {
+                        background-color: rgb(239, 49, 49);
+                        color: white;
+                    width: fit-content;
+                    }
+
+                    .product-actions .delete-btn:hover {
+                        background-color: rgb(200, 30, 30);
+                        transform: translateY(-3px);
+                    }
+
+                    .product-actions .delete-btn:active {
+                        background-color: rgb(150, 20, 20);
+                        transform: translateY(0);
+                    }
+
+                    /* Responsividad: pantalla más pequeña */
+                    @media (max-width: 1024px) {
+                        .marketplace {
+                            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Columnas más pequeñas */
+                        }
+
+                        .product-card img {
+                            height: 100px;
+                            width: 100px;
+                        }
+
+                        .product-actions button {
+                            padding: 6px 10px;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .marketplace {
+                            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* Ajuste aún más pequeño */
+                        }
+
+                        .product-card img {
+                            height: 80px;
+                            width: 80px;
+                        }
+
+                        .product-actions button {
+                            font-size: 0.8rem;
+                            padding: 5px 8px;
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+                        .marketplace {
+                            grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+                        }
+
+                        .product-card img {
+                            height: 60px;
+                            width: 60px;
+                        }
+
+                        .product-actions button {
+                            font-size: 0.8rem;
+                            padding: 5px 8px;
+                        }
+                    }
+
+                        </style>
+</head>
+<body>
+    <div class="user-panel">
+        <!-- Header -->
+        <header class="header">
+            <h1>Regala y Recibe</h1>
+            <div class="header-actions">
+                <input type="text" placeholder="Buscar productos..." class="search-bar">
+                <select class="category-dropdown">
+                    <option value="all">Todas las categorías</option>
+                    <option value="deporte">Deporte</option>
+                    <option value="tecnología">Tecnología</option>
+                    <option value="hogar">Hogar</option>
+                </select>
+                <button class="filter-btn">Buscar</button>
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button  style="width: max-content"; type="submit" class="logout-btn">Cerrar Sesión</button>
+                </form>
+            </div>
+        </header>
+
+        
+        <div class="panel-container">
+            
+            <aside class="sidebar">
+                <div class="profile-section">
+                    <img src="{% if user.imagen_perfil %}{{ user.imagen_perfil.url }}{% else %}default_profile.jpg{% endif %}" alt="Foto de Perfil" class="profile-pic">
+                    <h2>Bienvenido  </h2>
+                    <h3>{{ user.nombre}} {{ user.apellido }}</h3>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Teléfono:</strong> {{ user.telefono }}</p>
+                    <button class="edit-btn"><a style=" color:white; text-decoration: none;" href="{% url 'editar_perfil' %}">Editar Perfil</a></button><br>
+                </div>
+                <nav>
+                    <a style=" color: white;text-decoration: none;" href="{% url 'crearProducto' %}">
+                        <button class="sidebar-btn">Publicar Articulo</button>
+                    </a>
+                    <a style=" color:white; text-decoration: none;" href="{% url 'mis_publicaciones' %}">
+                        <button class="sidebar-btn">Mis Publicaciones</button>
+                    </a>
+
+                    <button  class="sidebar-btn"><a  style=" color: white;text-decoration: none;" href="{% url 'mis_transacciones' %}">Ver mis Transacciones</a></button>
+                    
+                </nav>
+            </aside>
+            <main class="main-content">
+                <link rel="stylesheet" href="{% static 'css/mis_productos.css' %}">
+                <h2>Mis Publicaciones</h2>
+                <a href="{% url 'home' %}" style="text-decoration: none; color: white; margin-bottom: 20px;">Volver</a>
+                <section class="marketplace">
+                    {% if productos %}
+                        {% for producto in productos %}
+                            <div class="product-card">
+                                <!-- Imagen del producto -->
+                                <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'imagenes/default_imagen.png' %}{% endif %}" 
+                                     alt="{{ producto.nombre_producto }}" 
+                                     class="product-image">
+                                
+                                <!-- Detalles del producto -->
+                                <h3>{{ producto.nombre_producto }}</h3>
+                                <p>Publicado el: <strong>{{ producto.fecha_publicacion|date:"d/m/Y" }}</strong></p>
+                                <p>Tipo de Transacción: <strong>{{ producto.tipo_transaccion.nombre }}</strong></p>
+                                <p>Categoría: <strong>{{ producto.categoria.nombre_categoria }}</strong></p>
+                                
+                                <!-- Acciones del producto -->
+                                <div class="product-actions">
+                                    <!-- Botón Editar -->
+                                    <button class="edit-btn">
+                                        <a href="{% url 'editar_producto' producto.id %}" style="text-decoration: none; color: white;">Editar</a>
+                                    </button>
+                                    
+                                    <!-- Botón Eliminar -->
+                                    <form id="form-eliminar-{{ producto.id }}" action="{% url 'eliminar_producto' producto.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="button" onclick="confirmarEliminacion(event, {{ producto.id }})" class="delete-btn">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No has publicado ningún producto aún.</p>
+                    {% endif %}
+
+                </section>
+            </main>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const mainContent = document.querySelector(".main-content");
+            const sidebarToggleBtn = document.querySelector(".sidebar-btn"); // Un botón para abrir/cerrar el sidebar
+        
+            // Toggle the sidebar visibility
+            sidebarToggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("open");
+                mainContent.classList.toggle("open");
+            });
+        });
+    </script>
+    <script>
+        function confirmarEliminacion(event, productoId) {
+            event.preventDefault(); // Previene la redirección automática
+            const confirmacion = confirm("¿Estás seguro de que deseas eliminar este producto?");
+            if (confirmacion) {
+                document.getElementById(`form-eliminar-${productoId}`).submit();
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

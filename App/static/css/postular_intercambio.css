@@ -1,0 +1,99 @@
+/* General */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Contenedor Principal */
+.interchange-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sección Izquierda */
+.left-section {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-info, .product-info {
+    background-color: #f0f9ff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.user-photo, .product-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    margin: 10px auto;
+    object-fit: cover;
+}
+
+.details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Sección Derecha */
+.right-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+textarea, input[type="text"], input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    background-color: #00aaff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .interchange-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-photo, .product-photo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .left-section, .right-section {
+        width: 100%;
+    }
+}

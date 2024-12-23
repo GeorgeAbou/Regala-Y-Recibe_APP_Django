@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Postulación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            line-height: 1.6;
+        }
+        img {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>¡Nueva postulación para tu donación!</h1>
+    {% comment %} <p>El usuario <strong>{{ postulacion.donante.nombre }}</strong> se ha postulado para recibir tu producto.</p>
+    <p>Producto: <strong>{{ postulacion.producto.nombre_producto }}</strong></p> {% endcomment %}
+
+    <div class="card">
+        
+        <p>El usuario <strong>{{ postulacion.donante.nombre }}</strong></p>
+        <h2>Foto del postulante:</h2>
+        <img src="cid:donante_imagen" alt="Foto del postulante">
+        <p><strong>se ha postulado para recibir tu producto</strong></p>
+        <h2>Foto del producto:{{ postulacion.producto.nombre_producto }} </h2>
+        <img src="cid:producto_imagen" alt="Producto donado">
+        <p>mensaje: {{postulacion.comentario}}</p>
+        <p>{{postulacion.fecha_postulacion}}</p>
+        
+    </div>
+</body>
+</html>

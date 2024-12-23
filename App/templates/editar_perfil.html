@@ -1,0 +1,59 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/editar_perfil.css' %}">
+<div class="profile-detail-container">
+    <form method="POST" enctype="multipart/form-data" class="profile-detail-card">
+        {% csrf_token %}
+        
+        <!-- Sección de la imagen de perfil -->
+        
+        
+        <!-- Información del usuario -->
+        <div class="profile-info">
+            <h2 class="profile-name"><strong>Editar Perfil</strong></h2>
+            <div class="profile-image-section">
+                {% if usuario.imagen_perfil %}
+                    <img src="{{ usuario.imagen_perfil.url }}" alt="Perfil de {{ usuario.nombre }}" class="profile-image">
+                {% else %}
+                    <img src="{% static 'images/default-user.jpg' %}" alt="Imagen no disponible" class="profile-image">
+                {% endif %}
+                <input type="file" name="imagen_perfil" class="input-image">
+            </div>
+            
+            <label for="nombre">Nombre:</label>
+            <input  sytle="height:100px;" type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" value="{{ usuario.apellido }}" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" value="{{ usuario.telefono }}" required>
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" value="{{ usuario.email }}" required>
+
+            <label for="rut_usuario">RUT:</label>
+            <input type="text" id="rut_usuario" name="rut_usuario" value="{{ usuario.rut_usuario }}" readonly>
+
+            <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ usuario.fecha_nacimiento|date:'Y-m-d' }}">
+
+            <label for="{{ form.comuna.id_for_label }}">Comuna:</label>
+                {{ form.comuna }}
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" placeholder="Nueva contraseña (opcional)">
+
+            <label for="confirm_password">Confirmar Contraseña:</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirma la nueva contraseña">
+            
+            
+            <div class="profile-actions">
+                <button type="submit" class="save-btn">Guardar Cambios</button>
+                <a href="{% url 'home' %}" class="back-btn">Volver</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

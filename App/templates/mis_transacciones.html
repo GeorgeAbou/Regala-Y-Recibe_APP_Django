@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/mis_transacciones.css' %}">
+  <title>Historial de Transacciones</title>
+</head>
+<body>
+  <h1>Historial de Transacciones</h1>
+  <a style="color:white; text-decoration:none;" href="{% url 'home' %}"><strong>Volver</strong></a>
+  
+  {% comment %} transaciones realizadas {% endcomment %}
+  <div class="historial-transacciones">
+    <!-- Donaciones -->
+    {% for donacion in donaciones %}
+      <div class="transaccion">
+        <div class="transaccion-contenedor">
+          <div class="producto-detalle">
+            <img src="{{ donacion.producto.imagen.url }}" alt="Imagen del Producto" class="producto-imagen">
+            <p><strong>Producto:</strong> {{ donacion.producto.nombre_producto }}</p>
+            <p><strong>Estado:</strong> {{ donacion.estado|capfirst }}</p>
+            <p><strong>Fecha:</strong> {{ donacion.fecha_postulacion|date:"d M Y" }}</p>
+          </div>
+
+          <div class="usuario-detalle">
+            <img src="{{ donacion.producto.usuario_creador.imagen_perfil.url }}" alt="Imagen del Publicador" class="usuario-imagen">
+            <p><strong>Publicador:</strong> {{ donacion.producto.usuario_creador.nombre }}</p>
+            <p><strong>Tipo de Transacción:</strong> Donación</p>
+          </div>
+        </div>
+        {% comment %} <button style="background-color:#D8A300;" class="btn-cambiar-estado">Editar</button> {% endcomment %}
+        <button  style="background-color:red;" class="btn-cambiar-estado">Cancelar</button>
+      </div>
+    {% endfor %}
+
+    <!-- Intercambios -->
+    {% for intercambio in intercambios %}
+      <div class="transaccion">
+        <div class="transaccion-contenedor">
+          <div class="producto-detalle">
+            <img src="{{ intercambio.producto.imagen.url }}" alt="Imagen del Producto" class="producto-imagen">
+            <p><strong>Producto:</strong> {{ intercambio.producto.nombre_producto }}</p>
+            <p><strong>Estado:</strong> {{ intercambio.estado|capfirst }}</p>
+            <p><strong>Fecha:</strong> {{ intercambio.fecha_postulacion|date:"d M Y" }}</p>
+          </div>
+
+          <div class="producto-ofrecido">
+            <img src="{{ intercambio.foto.url }}" alt="Imagen del Producto Ofrecido" class="producto-imagen-ofrecido">
+            <p><strong>Producto Ofrecido:</strong> {{ intercambio.nombre_nuevo_producto }}</p>
+          </div>
+
+          <div class="usuario-detalle">
+            <img src="{{ intercambio.producto.usuario_creador.imagen_perfil.url }}" alt="Imagen del Publicador" class="usuario-imagen">
+            <p><strong>Publicador:</strong> {{ intercambio.producto.usuario_creador.nombre }}</p>
+            <p><strong>Tipo de Transacción:</strong> Intercambio</p>
+          </div>
+        </div>
+        {% comment %} <button style="background-color:#D8A300;" class="btn-cambiar-estado">Editar</button> {% endcomment %}
+        <button  style="background-color:red;" class="btn-cambiar-estado">Cancelar</button>
+      </div>
+      
+    {% endfor %}
+  </div>
+</body>
+</html>
+{% endblock %}

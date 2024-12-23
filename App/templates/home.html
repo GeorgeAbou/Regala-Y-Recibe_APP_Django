@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main class="main-content">
+    <link rel="{% static 'css/base.css' %}">
+    <h2>Artículos Disponibles</h2>
+    
+    <section class="marketplace">
+        {% for producto in productos %}
+        <div class="product-card">
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="Imagen de {{ producto.nombre_producto }}" class="product-image">
+            {% else %}
+                <img src="{% static 'imagenes/default_imagen.png' %}" alt="Imagen no disponible" class="product-image">
+            {% endif %}
+            <!-- Detalles del producto -->
+            <h3>{{ producto.nombre_producto }}</h3>
+            <p>Publicado por: 
+                <strong>{{ producto.usuario_creador.nombre }} {{ producto.usuario_creador.apellido }}</strong>
+            </p>
+            <p class="transaction-type">
+                Tipo de Transacción: 
+                <strong>{{ producto.tipo_transaccion.nombre  }}</strong>
+            </p>
+            <p>Categoría: 
+                <strong>{{ producto.categoria.nombre_categoria  }}</strong>
+            </p>
+            <p>Creado el 
+                <strong>{{ producto.fecha_creacion }}</strong>
+            </p>
+           
+            
+            
+            <!-- Acciones del producto -->
+            <div class="product-actions">
+                <a href="{% url 'detalle_producto' producto.id %}"><button class="detail-btn">Ver Detalle</button></a>
+                
+                {% if producto.usuario_creador != request.user %}
+                    {% if producto.tipo_transaccion.nombre|lower == 'donación' %}
+                        <button class="request-btn"><a style="color: white; text-decoration: none;" href="{% url 'postular_donacion' producto.id %}">Postular</a></button>
+                    {% elif producto.tipo_transaccion.nombre|lower == 'intercambio' %}
+                        <button class="request-btn"><a style="color: white; text-decoration: none;" href="{% url 'postular_intercambio' producto.id %}">Postular</a></button>
+                    {% endif %}
+                {% endif %}
+                
+                
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}
+
+                
+         
+  

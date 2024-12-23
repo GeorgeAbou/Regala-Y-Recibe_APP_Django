@@ -1,0 +1,65 @@
+{% load static %}
+<main class="main-content">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    
+    <div class="login-container">
+        <!-- Logo arriba -->
+        <div class="login-logo-container">
+            <img src="{% static 'imagenes/logo.png' %}" alt="Logo" class="login-logo">
+        </div>
+
+        <!-- Formulario de login -->
+        <section class="login-section">
+            <div class="login-form-container">
+                <h1>Inicia sesión</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Campo para el correo electrónico -->
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Correo electrónico</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">
+                                {% for error in form.email.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Campo para la contraseña -->
+                    <div class="form-group">
+                        <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="error">
+                                {% for error in form.password.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Mostrar errores globales -->
+                    {% if messages %}
+                        <div class="error-message">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Botón para iniciar sesión -->
+                    <button type="submit" class="btn">Iniciar sesión</button>
+                    <p class="register-link"><a style="text-decoration:none; color:black;" href="#"><strong>Recuperar Contraseña</strong></a></p>    
+                    <!-- Enlace para registrar cuenta -->
+                    <p class="register-link">¿No tienes una cuenta? <a   style="color:#004d61;" href="{% url 'registro' %}"><strong>Regístrate</strong></a></p>
+                    <p class="register-link"><a style="text-decoration:none; color:black;" href="{% url 'admin:index' %}"><strong>Ingresar como  administrador</strong></a></p>    
+                    <!-- Enlace para volver a la página principal -->
+                    <p class="register-link"><a  style="color:#004d61;" href="{% url 'index' %}"><strong>Volver a la página principal</strong></a></p>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>

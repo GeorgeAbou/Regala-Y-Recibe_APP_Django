@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}Panel de Usuario{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <div class="user-panel">
+        <!-- Header -->
+        <header class="header">
+            <h1>Regala y Recibe</h1>
+            <div class="header-actions">
+                 <input style="width:50px ;" type="text" placeholder="Buscar productos..." class="search-bar"> 
+                 <select class="category-dropdown">
+                    {% for categoria in  categorias %}
+                    <option value="">{{ categoria.nombre }}</option>
+                    {% endfor %}
+                    <option value="all">Todas las categorías</option>
+                    <option value="deporte">Deporte</option>
+                    <option value="tecnología">Tecnología</option>
+                    <option value="hogar">Hogar</option>
+                </select> 
+               
+                <button class="filter-btn">Buscar</button>
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button style="width: max-content" type="submit" class="logout-btn">Cerrar Sesión</button>
+                </form>
+                <!-- Menú hamburguesa para móvil -->
+                <button class="hamburger-btn" id="hamburger-btn">&#9776;</button>
+            </div>
+        </header>
+
+        <div class="panel-container">
+            <!-- Sidebar (oculto en móviles) -->
+            <aside class="sidebar" id="sidebar">
+                <div class="profile-section">
+                    <img src="{% if user.imagen_perfil %}{{ user.imagen_perfil.url }}{% else %}default_profile.jpg{% endif %}" alt="Foto de Perfil" class="profile-pic">
+                    <h2 style="color:white;">Bienvenido </h2>
+                    <h3>{{ user.nombre}} {{ user.apellido }}</h3>
+                    <button class="edit-btn"><a style="color:white; text-decoration:none;" href="{% url 'editar_perfil' %}">Editar Perfil</a></button><br>
+                    {% comment %} <button class="edit-btn"><a  style="color:white; text-decoration:none;" href="{% url 'visita_perfil'  %}" class="profile-link">Ver Perfil</a></button><br> {% endcomment %}
+                    
+                </div>
+                <nav>
+                    <a style="color: white;text-decoration: none;" href="{% url 'crearProducto' %}">
+                        <button class="sidebar-btn">Publicar Articulo</button>
+                    </a>
+                    <a style="color: white;text-decoration: none" href="{% url 'mis_publicaciones' %}">
+                        <button class="sidebar-btn">Mis Publicaciones</button>
+                    </a>
+                    <button class="sidebar-btn"><a style="color: white;text-decoration: none;" href="{% url 'mis_transacciones' %}">Ver mis Transacciones</a></button>
+                </nav>
+            </aside>
+            
+            <main class="main-content">
+                {% block content %}                
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript para el menú hamburguesa -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const hamburgerBtn = document.getElementById("hamburger-btn");
+            
+            // Toggle de la barra lateral al hacer clic en el ícono del menú hamburguesa
+            hamburgerBtn.addEventListener("click", function() {
+                sidebar.classList.toggle("open");
+            });
+        });
+    </script>
+</body>
+</html> 

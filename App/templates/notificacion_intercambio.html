@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Propuesta de Intercambio</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+    <h2 style="color: #2E86C1;">Nueva Propuesta de Intercambio</h2>
+    <p>Hola <strong>{{ propietario.nombre }}</strong>,</p>
+
+    <p>Has recibido una nueva propuesta de intercambio para tu producto:</p>
+
+    <h3 style="color: #117A65;">{{ producto.nombre_producto }}</h3>
+    <img src="cid:producto_imagen" alt="Imagen del producto" style="width: 200px; height: auto;">
+
+    <p><strong>Propuesto por:</strong> {{ intercambiador.nombre }} {{ intercambiador.apellido }}</p>
+    <img src="cid:intercambiador_imagen" alt="Imagen de perfil del intercambiador" style="width: 100px; height: auto; border-radius: 50%;">
+
+    <h3 style="color: #117A65;">Detalles del Producto Propuesto</h3>
+    <p><strong>Nombre:</strong> {{ postulacion.nombre_nuevo_producto }}</p>
+    <p><strong>Descripción:</strong> {{ postulacion.descripcion }}</p>
+    <img src="cid:producto_intercambio" alt="Imagen del producto propuesto" style="width: 200px; height: auto;">
+
+    
+
+    <p>Saludos,<br>
+    <em>El equipo de Regala & Recibe</em></p>
+</body>
+</html>

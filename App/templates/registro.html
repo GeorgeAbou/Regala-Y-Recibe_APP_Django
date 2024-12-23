@@ -1,0 +1,129 @@
+{% load static %}
+<main class="main-content">
+    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
+    <section class="register-section">
+        <div class="register-container">
+            <!-- Columna izquierda con logo (opcional) -->
+           
+            <!-- Columna derecha con el formulario -->
+            <div class="register-form-container">
+                <img src="{% static 'imagenes/logo.png' %}" alt="Logo" class="register-logo">
+                </form>
+                <h1>¡Regístrate!</h1>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Correo electrónico</label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.rut_usuario.id_for_label }}">RUT</label>
+                        {{ form.rut_usuario }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.nombre.id_for_label }}">Nombre</label>
+                        {{ form.nombre }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.apellido.id_for_label }}">Apellido</label>
+                        {{ form.apellido }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.telefono.id_for_label }}">Teléfono</label>
+                        {{ form.telefono }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.fecha_nacimiento.id_for_label }}">Fecha de nacimiento</label>
+                        {{ form.fecha_nacimiento }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.comuna.id_for_label }}">Comuna</label>
+                        {{ form.comuna }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.ciudad.id_for_label }}">Ciudad</label>
+                        {{ form.ciudad }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.imagen_perfil.id_for_label }}">Imagen de perfil</label>
+                        {{ form.imagen_perfil }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                        {{ form.password }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.confirm_password.id_for_label }}">Confirmar Contraseña</label>
+                        {{ form.confirm_password }}
+                    </div>
+
+                    <button type="submit" class="btn-register">Registrarme</button>
+                    <p class="login-link">¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+                    <p class="back-link"><a  style="color:blue;" href="{% url 'index' %}">Volver a la página principal</a></p>
+
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Aquí se agrega el JavaScript para mostrar las alertas en ventanas emergentes -->
+{% if messages %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            {% for message in messages %}
+                var messageType = "{{ message.tags }}"; // Tipo de mensaje (success, error, etc.)
+                var messageContent = "{{ message }}"; // El contenido del mensaje
+                showAlert(messageType, messageContent); // Llamamos a la función para mostrar el mensaje
+            {% endfor %}
+        });
+
+        function showAlert(type, message) {
+            // Crear el contenedor de la alerta
+            var alertContainer = document.createElement('div');
+            alertContainer.classList.add('alert', type); // Añadimos las clases correspondientes al tipo de mensaje
+            alertContainer.innerText = message; // Establecemos el mensaje
+            
+            // Añadimos el contenedor de la alerta al body
+            document.body.appendChild(alertContainer);
+
+            // Desaparecer la alerta después de 4 segundos
+            setTimeout(function() {
+                alertContainer.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+{% endif %}
+
+<!-- Estilos para las alertas -->
+<style>
+    .alert {
+        position: fixed;
+        top: 10%;
+        right: 10%;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        z-index: 1000;
+        display: inline-block;
+    }
+    .alert.success {
+        background-color: #4CAF50; /* Verde */
+    }
+    .alert.error {
+        background-color: #F44336; /* Rojo */
+    }
+</style>

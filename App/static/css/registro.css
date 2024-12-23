@@ -1,0 +1,148 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Aseguramos que el body ocupe toda la altura de la pantalla */
+    overflow-x: hidden; /* Evitamos el desplazamiento horizontal */
+}
+
+/* Sección principal */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alineación superior */
+    min-height: 100vh; /* Garantizamos que el contenedor ocupe al menos toda la altura de la pantalla */
+    background-color: #f5f5f5;
+    padding-top: 40px; /* Espacio desde la parte superior */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Sección de registro */
+.register-section {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px; /* Margen superior para mover el contenido hacia abajo */
+    justify-content: center; /* Centra la sección de registro en la pantalla */
+}
+
+/* Contenedor principal */
+.register-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px; /* Ancho máximo para el contenedor */
+    flex-wrap: wrap; /* Esto permite que las columnas se acomoden si el tamaño es pequeño */
+    justify-content: center; /* Centra los elementos dentro del contenedor */
+}
+
+/* Columna izquierda (Logo) */
+.register-logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Alineación en la parte inferior */
+    background-color: cadetblue;
+    padding: 20px;
+    min-height: 100vh; /* Para que ocupe toda la pantalla de alto */
+}
+
+.register-logo {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Añadido para un pequeño margen desde la parte inferior */
+}
+
+/* Columna derecha (Formulario) */
+.register-form-container {
+    flex: 1;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    min-height: 100vh; /* Aseguramos que ocupe al menos toda la altura de la pantalla */
+    overflow-y: auto; /* Permite hacer scroll dentro del formulario si el contenido es demasiado largo */
+    width: 100%; /* Asegura que ocupe todo el espacio disponible */
+    max-width: 600px; /* Limita el ancho máximo del formulario */
+}
+
+/* Estilo del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.login-link, .back-link {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.login-link a, .back-link a {
+    color: #333;
+    text-decoration: none;
+}
+
+.login-link a:hover, .back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .register-container {
+        flex-direction: column;
+        width: 90%; /* Reduce el contenedor a un 90% del ancho disponible */
+    }
+
+    .register-logo-container, .register-form-container {
+        width: 100%;
+    }
+
+    .register-logo {
+        max-width: 50%;
+        margin-bottom: 20px; /* Asegura que haya margen en pantallas pequeñas también */
+    }
+
+    .register-form-container {
+        padding: 20px;
+        max-width: 100%; /* Asegura que el formulario ocupe todo el ancho en pantallas pequeñas */
+    }
+
+    button {
+        font-size: 14px; /* Reducir el tamaño del botón en pantallas pequeñas */
+        padding: 10px;
+    }
+}
+

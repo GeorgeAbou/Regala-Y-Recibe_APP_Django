@@ -1,0 +1,105 @@
+/* Estilo general del formulario */
+.form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 120px;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #45A049;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #007ACC;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    /* Hacer que el formulario ocupe más espacio */
+    .form-container {
+        padding: 15px;
+        margin: 20px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.9rem;  /* Ajustar el tamaño de fuente */
+    }
+
+    .submit-btn {
+        padding: 12px;  /* Reducir el padding en botones */
+    }
+
+    .back-link {
+        font-size: 0.9rem; /* Ajustar tamaño del enlace */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 10px;  /* Reducir padding en dispositivos más pequeños */
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.8rem;  /* Reducir tamaño del texto */
+    }
+
+    .submit-btn {
+        padding: 10px;  /* Ajustar tamaño de los botones */
+    }
+
+    .back-link {
+        font-size: 0.8rem;  /* Ajustar tamaño del enlace */
+    }
+}
